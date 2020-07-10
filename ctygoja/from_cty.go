@@ -15,6 +15,11 @@ import (
 // value then this function will panic. This function cannot convert
 // capsule-typed values and will panic if you pass one.
 //
+// The conversions from cty to JavaScript follow similar rules as the default
+// representation of cty in JSON and so a round-trip through goja.Value and
+// back to cty.Value is lossy: maps will generalize as objects and lists and
+// sets will generalize as tuples.
+//
 // This function must not be called concurrently with other use of the given
 // runtime.
 func FromCtyValue(v cty.Value, js *goja.Runtime) goja.Value {
